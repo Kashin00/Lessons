@@ -28,7 +28,13 @@ import Foundation
 */
 
 // Добавь код сюда:
+var firstVariable = 1
+var secondVariable: Int = 2
 
+swap(&firstVariable, &secondVariable)
+
+print("first variable = \(firstVariable)")
+print("second variable = \(secondVariable)")
 
 /*:
 ---
@@ -37,8 +43,11 @@ import Foundation
  - Установи новое произвольное значение всем параметрам, для которых эта операция возможна.
 */
 // Добавь код сюда:
-
-
+let firstConst = 3.14159
+let secondConst: Float
+var firstDoubleVariable: Double
+secondConst = 3.14
+firstDoubleVariable = 1.1
 
 /*:
 ---
@@ -48,20 +57,29 @@ import Foundation
  - Найди сумму всех трех констант и запишите ее в переменную типа `Float`. Результат выведи в консоль.
 */
 // Добавь код сюда:
+let firstIntConst: Int
+let secondFloatConst: Float
+let thirdDoubleConst: Double
+firstIntConst = 18
+secondFloatConst = 16.4
+thirdDoubleConst = 5.7
 
+var rezultOfSum = Float(firstIntConst) + secondFloatConst + Float(thirdDoubleConst)
+print(rezultOfSum)
 
 /*:
 - Найди произведение всех трех констант и запиши его в переменную типа `Int`. Результат выведи в консоль.
  - Note: 👆 _Помни, что тебе необходимо получить результат с минимальной погрешностью._
 */
 // Добавь код сюда:
-
+var composition = firstIntConst * Int(secondFloatConst) + Int(thirdDoubleConst)
+print(composition)
 /*:
 - Найди остаток от деления константы типа `Float` на константу типа `Double` и запиши ее в переменную типа `Double`. Результат выведи в консоль.
 */
 // Добавь код сюда:
-
-
+var dividing: Double = Double(secondFloatConst).truncatingRemainder(dividingBy: thirdDoubleConst)
+print(dividing)
 /*:
 ---
 #### Задание 4:
@@ -71,7 +89,11 @@ import Foundation
  - Выведи в консоль результат.
  */
 // Добавь код сюда:
-
+var someString = "Hello"
+var someIntValue = 1
+var oneMoreIntValue = 2
+let sumConst = someString + " \(someIntValue + oneMoreIntValue)"
+print(sumConst)
 /*:
 ---
 #### Задание 5:
@@ -81,8 +103,13 @@ import Foundation
 
  */
 // Добавь код сюда:
+var firstBool = true
+var secondBool = false
+let andCont = firstBool && secondBool
+let orCont = firstBool || secondBool
 
-
+print(andCont)
+print(orCont)
 /*:
 ---
 #### Задание 6:
@@ -92,8 +119,11 @@ import Foundation
 
  */
 // Добавь код сюда:
-
-
+let name = "Matvey Kashin"
+let birthday = "16.03.2003"
+let myInfo = name + " " + birthday
+print(myInfo)
+print(name, myInfo)
 /*:
 ---
 ## Продвинутый уровень:
@@ -103,7 +133,19 @@ import Foundation
  - Если в названии страны встречается буква А, выведи ее нзавание в консоль.
 */
 // Добавь код сюда:
+let ukraine = "Ukraine"
+let armenia = "Armenia"
+let argentina = "Argentina"
+let africa = "Africa"
+let poland = "Poland"
 
+let countyArray = [ukraine, armenia, argentina, africa, poland]
+countyArray.forEach{
+    
+if $0.contains("A") || $0.contains("a") {
+        print($0)
+    }
+}
 /*:
 ---
 #### Задание 8:
@@ -113,6 +155,14 @@ import Foundation
  - Выведи его консоль.
 */
 // Добавь код сюда:
+var someLitters = "авбгд"
+var uppercasedLitters = someLitters.uppercased()
+
+
+for (index, value) in someLitters.enumerated() {
+    
+    print("index = \(index), litter = \(value)")
+}
 
 /*:
 ---
