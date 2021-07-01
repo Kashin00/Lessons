@@ -138,7 +138,26 @@ _Output:_\
 Sum of missing numbers = 29
 */
 // Добавь код сюда:
-
+func sumOfMissingNumbersFunc(array: [UInt]) -> UInt {
+    
+    guard var min = array.min() else { return 0 }
+    guard let max = array.max() else {return 0}
+    var rez: UInt = 0
+    let array = array
+    
+    while max > min {
+        
+        if !array.contains(min) {
+            rez += min
+        }
+        
+        min += 1
+    }
+    
+    return rez
+}
+var sumOfMissingNumbers = sumOfMissingNumbersFunc(array: [1, 3, 5, 7, 10])
+print(sumOfMissingNumbers)
 /*:
 ---
 #### Задание 5:
@@ -162,6 +181,14 @@ _Output:_\
  ] 
 */
 // Добавь код сюда:
+var array = [
+[1, 0, 0],
+[0, 1, 0],
+[0, 0, 1],
+]
+
+
+
 
 /*:
 ---
