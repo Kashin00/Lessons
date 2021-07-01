@@ -23,6 +23,13 @@ import Foundation
  Min: 1
  */
 // Добавь код сюда:
+func calculateMin(_ firstValue: Int, _ secondValue: Int) -> Int {
+    if firstValue > secondValue {
+        return secondValue
+    } else {
+        return firstValue
+    }
+}
 
 /*:
 ---
@@ -44,7 +51,21 @@ import Foundation
  */
 
 // Добавь код сюда:
-
+func countDown(_ n: Int) {
+     var counter = n
+        
+     while counter >= 1{
+        
+        sleep(1)
+        print(counter)
+        
+        if counter == 1 {
+            print("GO!")
+        }
+        counter -= 1
+    }
+        
+}
 
 /*:
 ---
@@ -58,7 +79,14 @@ import Foundation
  Hi, NIX
  */
 // Добавь код сюда:
-
+func repeatPrint(_ s: String, _ n: Int) {
+    var counter = n
+    
+    while counter > 0 {
+        print(s)
+        counter -= 1
+    }
+}
 /*:
 ---
 #### Задание 4
@@ -71,6 +99,10 @@ import Foundation
  [3, 2, 1]
  */
 // Добавь код сюда:
+func reverse(array: [Int]) {
+    let reversedArray = Array(array.reversed())
+    print(reversedArray)
+}
 
 /*:
 ---
@@ -96,6 +128,13 @@ import Foundation
  5! = 120
  */
 // Добавь код сюда:
+func factorial(n: Int) -> Int {
+    
+    if n == 0 {
+        return 1
+    }
+    return n * factorial(n: n - 1)
+}
 
 /*:
 ---
@@ -119,6 +158,18 @@ import Foundation
 []
  */
 // Добавь код сюда:
+func filterDigitLength(array: [UInt], n: Int) {
+    var resultArray = [Int]()
+    let mappedArray = array.map{String($0)}
+    mappedArray.forEach{
+        
+        if $0.count == n {
+            guard let value = Int($0) else { return }
+            resultArray.append(value)
+        }
+    }
+    print(resultArray)
+}
 
 /*:
 ---
@@ -141,9 +192,27 @@ import Foundation
 ["jpg", "pdf", "mp3"]
  */
 // Добавь код сюда:
+func getExtension(_ array: [String]) {
+    var arrayOfExtension = [String]()
+    var formatLenght = 3
+    var temp = ""
 
+    array.forEach {
+        
+        for _ in 1...3 {
 
-
+            let index = $0.index($0.startIndex, offsetBy: $0.count - formatLenght)
+            formatLenght -= 1
+            temp.insert($0[index], at: temp.endIndex)
+            
+        }
+        formatLenght = 3
+        arrayOfExtension.append(temp)
+        temp = ""
+    }
+    print(arrayOfExtension)
+}
+getExtension(["project1.jpg", "project1.pdf", "project1.pdf"])
 /*:
 ---
 ### Продвинутый уровень:
