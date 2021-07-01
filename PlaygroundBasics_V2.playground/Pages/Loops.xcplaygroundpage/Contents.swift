@@ -204,7 +204,17 @@ func quicksortNaive(_ array: [Int]) -> [Int] {
   }
 
 // линейная
+for index in 1..<array.count {
+    var jIndex = index - 1
+    let value = array[index]
 
+    while jIndex >= 0 && value < array[jIndex] {
+        array[jIndex + 1] = array[jIndex]
+        jIndex -= 1
+    }
+    array[jIndex + 1] = value
+}
+print(array)
 /*:
 ---
 ### Продвинутый уровень:
