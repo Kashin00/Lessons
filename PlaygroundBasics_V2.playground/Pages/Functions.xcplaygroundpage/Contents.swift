@@ -232,7 +232,26 @@ Sum of missing numbers = 29
 */
 
 // Добавь код сюда:
+func sumOfMissingNumbersFunc(array: [UInt]) -> UInt {
 
+    guard var min = array.min() else { return 0 }
+    guard let max = array.max() else {return 0}
+    var rez: UInt = 0
+    let array = array
+
+    while max > min {
+
+        if !array.contains(min) {
+            rez += min
+        }
+
+        min += 1
+    }
+
+    return rez
+}
+var sumOfMissingNumbers = sumOfMissingNumbersFunc(array: [1, 3, 5, 7, 10])
+print(sumOfMissingNumbers)
 /*:
 ---
 #### Задание 9:
@@ -252,8 +271,23 @@ _Output:_\
 "A-Bb-Cccc=Dddd"
 */
 // Добавь код сюда:
-
-
+func addLiters(string: String) {
+    
+    var newString = ""
+    let elementsArray = ["-", "=", "+"]
+    
+    string.forEach {
+        let randomElement = arc4random_uniform(UInt32(elementsArray.count))
+        newString.append($0.uppercased())
+        $0.uppercased()
+        newString.append($0)
+        newString.append(elementsArray[Int(randomElement)])
+    }
+    
+    newString.removeLast()
+    print(newString)
+}
+addLiters(string: "abcd")
 /*:
 ---
 #### Задание 10:
@@ -289,7 +323,12 @@ D shows 2 times
 */
 
 // Добавь код сюда:
-
+func charInArray(array: [String], char: String) {
+    var counter = 0
+    
+    array.forEach{ if $0 == char { counter += 1}}
+    print("\(char) shows \(counter) times")
+}
 /*:
 ---
 ## Задание 12:
