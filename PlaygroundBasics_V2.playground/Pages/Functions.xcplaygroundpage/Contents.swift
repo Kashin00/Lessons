@@ -306,6 +306,12 @@ This Is A Title
 */
 
 // Добавь код сюда:
+func makeTitle(_ string: String) {
+    let result = string.split(separator: " ").map { $0.capitalized }.joined(separator: " ")
+    print(result)
+}
+
+makeTitle("This is array")
 
 /*:
 ---
@@ -351,7 +357,20 @@ False
 */
 
 // Добавь код сюда:
+func validateSubsets(superset: Set<Int>, of: [Set<Int>]) -> Bool {
+    
+    for item in of {
+        if !item.isSubset(of: superset) {
+            return false
+        }
+    }
+    return true
+}
 
+let set: [Set<Int>] = [[1, 2], [2, 3], [1, 3], [1, 2, 3]]
+let superset: Set<Int> = [4,5,6]
+
+print(validateSubsets(superset: superset, of: set))
 //: [Назад: Управление потоком](@previous)  |  Страница 6  |  [Вперед: Замыкания](@next)
 
 
