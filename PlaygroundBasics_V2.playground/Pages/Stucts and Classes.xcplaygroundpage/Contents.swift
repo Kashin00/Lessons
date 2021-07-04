@@ -63,10 +63,10 @@ struct Line {
     var p2: Point
     
     func length() -> Double{
-        let firstPoint = pointB.x - pointA.x
+        let firstPoint = p2.x - p1.x
         let firstPointPow = pow(firstPoint, 2)
 
-        let secondStep = pointB.y - pointA.y
+        let secondStep = p2.y - p1.y
         let secondStepPow = pow(secondStep, 2)
         
         let sum = firstPointPow + secondStepPow
@@ -190,8 +190,6 @@ class Point3D: Point2D {
     
        init(x: Double, y: Double, z: Double) {
         super.init(x: x, y: y)
-        self.x = x
-        self.y = y
         self.z = z
     }
     
