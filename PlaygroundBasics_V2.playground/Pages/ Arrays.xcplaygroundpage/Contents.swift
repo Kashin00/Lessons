@@ -20,7 +20,7 @@ import Foundation
 - Обьяви переменную _listOfNumbers_, представляющую собой массив, который соостоит из целых чисел. Проицинициализируй его любыми значениями.
 */
 // Добавь код сюда:
-
+var listOfNumbers = [1,2,3,1,3,12,31,231,23,123]
 /*:
  - Выведи в консоль максимальное значение из этого массива.
  - Example: 😉\
@@ -30,8 +30,9 @@ import Foundation
  Max: 106
 */
 // Добавь код сюда:
-
-
+if let maxValue = listOfNumbers.max()  {
+    print(maxValue)
+}
 /*:
  - Выведи в консоль все нечетные числа из этого массива.
  - Example: 😉\
@@ -41,7 +42,8 @@ import Foundation
  Odd numbers: 3, 7
  */
 // Добавь код сюда:
-
+let notEven = listOfNumbers.filter { $0 % 2 != 0 }
+print(notEven)
 /*:
  - Выведи в консоль сумму всех элементов массива.
  - Example: 😉\
@@ -51,7 +53,8 @@ import Foundation
  Sum: 224
  */
 // Добавь код сюда:
-
+let sum = listOfNumbers.reduce(0) { $0 + $1 }
+print(sum)
 /*:
  - Выведи в консоль все числа из этого массива, которые расположены по нечетным индексам.
  - Example: 😉\
@@ -61,7 +64,14 @@ import Foundation
  Numbers with odd indexes: 6, 3, 7
  */
 // Добавь код сюда:
-
+var arrayOfNotEvenValue = [Int]()
+for (index, value) in listOfNumbers.enumerated() {
+    
+    if index  % 2 != 0 {
+        arrayOfNotEvenValue.append(value)
+    }
+}
+print(arrayOfNotEvenValue)
 /*:
  - Выведи в консоль числа из этого массива в обратном порядке.
  - Example: 😉\
@@ -71,7 +81,8 @@ import Foundation
  Going back: 7, 106, 3, 100, 6, 2
  */
 // Добавь код сюда:
-
+let reverseArray = Array(listOfNumbers.reversed())
+print(reverseArray)
 /*:
  - Получи новый массив, путем сортировки массива по возрастанию.
  - Выведи его в консоль.
@@ -86,12 +97,14 @@ import Foundation
  Sorted array: [2, 3, 6, 7, 100, 106]
  */
 // Добавь код сюда:
+let sortedByAscending = listOfNumbers.sorted(by: <)
+print(sortedByAscending)
 
 /*:
  - Обьяви целочисленную переменную _x_ и присвой ей любое значение.
   */
 // Добавь код сюда:
-
+var x = 4
 /*:
  - Проверь наличие _x_ в массиве _listOfNumbers_. Если есть, выведи в консоль _true_, если нет - _false_.
  - Example: 😉\
@@ -102,7 +115,11 @@ import Foundation
  true
  */
 // Добавь код сюда:
-
+if listOfNumbers.contains(x) {
+    print("true")
+} else {
+    print("false")
+}
 /*:
 ---
 #### Задание 2
@@ -110,7 +127,7 @@ import Foundation
 
  */
 // Добавь код сюда:
-
+var otherNumbers = [9,8,7]
 /*:
  - Выведи в консоль все элементы из массива _listOfNumbers_, которые есть в массиве _otherNumbers_.
  - Example: 😉\
@@ -130,8 +147,19 @@ import Foundation
  
  */
 // Добавь код сюда:
+var arrayOfsameValue = [Int]()
 
+for item in otherNumbers {
+    if (listOfNumbers.firstIndex(of: item) != nil) {
+        arrayOfsameValue.append(item)
+    }
+}
 
+if arrayOfsameValue.isEmpty {
+    print("No data")
+} else {
+    print(arrayOfsameValue)
+}
 /*:
 ---
 ### Продвинутый уровень:
@@ -142,8 +170,31 @@ import Foundation
  - Выведи в консоль полученный массив.
 */
 // Добавь код сюда:
+let ukraine = "Ukraine"
+let poland = "Poland"
+let argentina = "Argentina"
+let africa = "Africa"
+let germany = "Germany"
+let austria = "Austria"
+let albania = "Albania"
+let russia = "Russia"
+let brazil = "Brazil"
+let haiti = "Haiti"
 
-
+let countryArray = [ukraine, poland, argentina, africa, germany, austria, albania, russia, brazil, haiti]
+var sortedArray = [String]()
+countryArray.forEach {
+    
+    if $0.count > 5 {
+        if $0.contains("A") {
+            let string = $0.replacingOccurrences(of: "A", with: "B")
+            sortedArray.append(string)
+        } else {
+            sortedArray.append($0)
+        }
+    }
+}
+print(sortedArray)
 /*:
 ---
 #### Задание 4:
@@ -167,6 +218,16 @@ False
 */
 
 // Добавь код сюда:
+let a = [2,3]
+let b = [1,2,3]
+let aSet = Set(a)
+let bSet = Set(b)
+
+if aSet.isSubset(of: bSet) {
+    print("TRUE")
+} else {
+    print("FALSE")
+}
 
 //: [Назад: Простые типы данных](@previous)  |  Страница 4  |  [Вперед: Управление потоком](@next)
 
