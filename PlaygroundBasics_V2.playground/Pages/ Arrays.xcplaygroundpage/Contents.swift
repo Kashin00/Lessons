@@ -170,8 +170,31 @@ if arrayOfsameValue.isEmpty {
  - Выведи в консоль полученный массив.
 */
 // Добавь код сюда:
+let ukraine = "Ukraine"
+let poland = "Poland"
+let argentina = "Argentina"
+let africa = "Africa"
+let germany = "Germany"
+let austria = "Austria"
+let albania = "Albania"
+let russia = "Russia"
+let brazil = "Brazil"
+let haiti = "Haiti"
 
-
+let countryArray = [ukraine, poland, argentina, africa, germany, austria, albania, russia, brazil, haiti]
+var sortedArray = [String]()
+countryArray.forEach {
+    
+    if $0.count > 5 {
+        if $0.contains("A") {
+            let string = $0.replacingOccurrences(of: "A", with: "B")
+            sortedArray.append(string)
+        } else {
+            sortedArray.append($0)
+        }
+    }
+}
+print(sortedArray)
 /*:
 ---
 #### Задание 4:
@@ -195,6 +218,16 @@ False
 */
 
 // Добавь код сюда:
+let a = [2,3]
+let b = [1,2,3]
+let aSet = Set(a)
+let bSet = Set(b)
+
+if aSet.isSubset(of: bSet) {
+    print("TRUE")
+} else {
+    print("FALSE")
+}
 
 //: [Назад: Простые типы данных](@previous)  |  Страница 4  |  [Вперед: Управление потоком](@next)
 
