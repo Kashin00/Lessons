@@ -42,15 +42,14 @@ class Painter: Employee {
 class Doctor: Employee {
     var hours: Int
     
-    func work() {
-        print("I am a doc")
-    }
     init(hours: Int
     ) {
         self.hours = hours
     }
-    
-    
+
+    func work() {
+        print("I am a doc")
+    }
 }
 /*:
  - Создай экземпляры каждого из классов.
