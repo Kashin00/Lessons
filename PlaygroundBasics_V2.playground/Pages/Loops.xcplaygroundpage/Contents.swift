@@ -337,6 +337,10 @@ _Output:_\
  [1, 2]
 */
 // Добавь код сюда:
-
-
+let mixedArray: [Any] = [1, 2, "a", "b"]
+var numberArray = [Any]()
+mixedArray.forEach { if $0 is Int {
+    numberArray.append($0)
+}}
+numberArray
 //: [Назад: Коллекции. Массивы и множества](@previous)  |  Страница 5  |  [Вперед:  Функции](@next)
