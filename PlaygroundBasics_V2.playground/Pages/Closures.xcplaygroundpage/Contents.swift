@@ -181,15 +181,15 @@ _Output:_\
  ] 
 */
 // Добавь код сюда:
-var array = [
-[1, 0, 0],
-[0, 1, 0],
-[0, 0, 1],
-]
+let array = [
+    [1, 0, 0],
+    [0, 1, 0],
+    [0, 0, 1],
+    ]
 
+let revArray = array.map { $0.map { 1 - $0 } }
 
-
-
+revArray.forEach { print($0) }
 /*:
 ---
 ## Задание 6:
