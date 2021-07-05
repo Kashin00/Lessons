@@ -17,7 +17,41 @@ import Foundation
  */
 
 // Добавь код сюда:
+class User {
+    
+    func wakeUp() {
+        
+        let alarm = AlarmClock()
+        alarm.delegate = self
+        alarm.turnOn()
+    }
+}
 
+protocol AlarmDelegate: AnyObject {
+    
+    func getUp()
+}
+
+extension User: AlarmDelegate {
+    
+    func getUp() {
+        print("User: So, I have to get up")
+    }
+}
+
+class AlarmClock {
+    
+    weak var delegate: AlarmDelegate?
+    
+    func turnOn() {
+        
+        print("Alarm Clock: The alarm is on")
+        delegate?.getUp()
+    }
+}
+
+let user = User()
+user.wakeUp()
 /*:
 ---
 ## Задание 2
@@ -26,5 +60,78 @@ import Foundation
 ![Delegate.Task2](Playground.Delegate.Task2.png)
 */
 // Добавь код сюда:
+class Me {
+    
+    func repairs() {
+        
+        let builder = Builder()
+        builder.delegate = self
+        builder.createPreparationWork()
+        builder.choiceColor()
+        builder.painting()
+        builder.end()
+    }
+}
 
+
+protocol Builderable: AnyObject {
+    
+    var color: String { get }
+    
+    func preparationWork()
+    func colorSelection()
+    func painting()
+    func end()
+    
+}
+
+extension Me: Builderable {
+    var color: String {
+     
+        return "white"
+    }
+    
+    func preparationWork() {}
+    
+    func colorSelection() {
+        
+        print("User: I prefer \(color) color")
+    }
+    
+    func painting() {}
+    
+    func end() {}
+}
+
+class Builder {
+    
+    weak var delegate: Builderable?
+    
+    func createPreparationWork() {
+        
+        print("Builder: Creating preparation work")
+        delegate?.preparationWork()
+    }
+    
+    func choiceColor() {
+        
+        print("Builder: What color do you prefer?")
+        delegate?.colorSelection()
+    }
+    
+    func painting() {
+        
+        print("Builder: Painting....")
+        delegate?.painting()
+    }
+    
+    func end() {
+        
+        print("Builder: Renovation completed!")
+        delegate?.end()
+    }
+}
+
+let me = Me()
+me.repairs()
 //: [Назад: Протоколы](@previous)  |  Страница 12]  [Вперед:  Универсальные шаблоны](@next)
