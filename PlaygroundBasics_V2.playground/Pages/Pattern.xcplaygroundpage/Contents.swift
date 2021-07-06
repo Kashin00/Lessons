@@ -36,46 +36,43 @@ import Foundation
 
 // Добавь код сюда:
 enum TypeOfPizza {
-
+    
     case cheese
     case pepperoni
 }
 
 protocol Pizza {
-    static func createPizza(with ingredient: TypeOfPizza)
+    func pizzaInfo()
 }
 
 class PepperoniPizza: Pizza {
-    static func createPizza(with ingredient: TypeOfPizza) {
-        print("Create pizza with \(ingredient)")
+    func pizzaInfo() {
+        print("Pizza with pepperoni")
     }
 }
 
 class CheesePizza: Pizza {
-    static func createPizza(with ingredient: TypeOfPizza) {
-        print("Create pizza with \(ingredient)")
+    func pizzaInfo() {
+        print("Pizza with cheese")
     }
 }
 
-
-class Visitor {
+class Factory {
     
-    let ingredient: TypeOfPizza
+//    static let factory = Factory()
     
-    init(ingredient: TypeOfPizza) {
-        self.ingredient = ingredient
+    static func createPizza(with ingrediend: TypeOfPizza) -> Pizza {
+        
+        switch ingrediend {
+        case .cheese:
+            return CheesePizza()
+        case .pepperoni:
+            return PepperoniPizza()
+        }
     }
 }
-
-let visitor = Visitor(ingredient: .cheese)
-
-if visitor.ingredient == .cheese {
-    let pizza = CheesePizza.createPizza(with: .cheese)
-}
-    else {
-        let pizza = PepperoniPizza.createPizza(with: .pepperoni)
-    }
-
+    
+let visitir = Factory.createPizza(with: .cheese)
 /*:
 ---
 #### Задание 2
@@ -126,7 +123,8 @@ class TransportCreator: Transport {
     }
 }
 
-var car = TransportCreator(typeOfTransport: .car, condition: .new, fuel: .petrol, maxNumOfPeople: 5)
+let car = TransportCreator(typeOfTransport: .car, condition: .new, fuel: .petrol, maxNumOfPeople: 5)
+let bike = TransportCreator(typeOfTransport: .bike, condition: .new, fuel: .electricity, maxNumOfPeople: 2)
 /*:
 ---
 #### Задание 3
@@ -135,39 +133,7 @@ var car = TransportCreator(typeOfTransport: .car, condition: .new, fuel: .petrol
 */
 
 // Добавь код сюда:
-//enum Seats {
-//    case sport
-//    case comfort
-//}
-//
-//enum Engine {
-//    case sport
-//    case city
-//    case offroad
-//}
-//
-//enum Color {
-//    case white
-//    case black
-//    case red
-//    case blue
-//}
-//
-//enum GPS {
-//    case yes
-//    case no
-//}
-//
-//protocol Builder {
-//
-//    var seat: Seats { get }
-//    var engine: Engine { get }
-//    var color: Color { get }
-//    var gps: GPS { get }
-//
-//    func getResult()
-//
-//}
+
 
 /*:
 ---
@@ -257,7 +223,81 @@ dataAdapter.tellDate()
  - Note: 👆 _Используй паттерн цепочка обязанностей_
 */
 
+
 // Добавь код сюда:
+
+var wareHouse = [String]()
+var handlerItems = [String]()
+
+class Responder {
+    
+    var canHandl = [String]()
+    var next: Responder?
+
+    init(canHandl: [String]) {
+        self.canHandl = canHandl
+    }
+    
+    func setNext(_ next: Responder) {
+        self.next = next
+    }
+    
+    func handle(for item: String) -> String {
+        
+        if canHandl.contains(item) {
+            print("Done")
+            handlerItems.append(item)
+            return item
+        } else if let next = next {
+            print("Cant handle. Processing to the next handler.....")
+            return next.handle(for: item)
+        }
+        
+        print("Cant handle \(item)")
+        wareHouse.append(item)
+        return "Added to wareHouse"
+    }
+}
+
+
+class Handler {
+    
+     var foodWasteHandler: Responder
+     var electricsHandler: Responder
+     var papepHandler: Responder
+     var glassHandler: Responder
+    
+    init(foodWasteHandler: Responder, electricsHandler: Responder, papepHandler: Responder, glassHandler: Responder) {
+        self.foodWasteHandler = foodWasteHandler
+        self.electricsHandler = electricsHandler
+        self.papepHandler = papepHandler
+        self.glassHandler = glassHandler
+    }
+    
+    func recycle(_ item: String) {
+        print((foodWasteHandler.handle(for: item)))
+    }
+    
+}
+
+
+let foodWaste = Responder(canHandl: ["foodWaste"])
+let electrics = Responder(canHandl: ["electrics"])
+let paper = Responder(canHandl: ["paper"])
+let glass = Responder(canHandl: ["glass"])
+
+foodWaste.setNext(electrics)
+electrics.setNext(paper)
+paper.setNext(glass)
+
+let handler = Handler(foodWasteHandler: foodWaste, electricsHandler: electrics, papepHandler: paper, glassHandler: glass)
+
+handler.recycle("paper")
+handler.recycle("iron")
+
+handlerItems
+wareHouse
+
 
 
 /*:
