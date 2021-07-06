@@ -35,6 +35,46 @@ import Foundation
 */
 
 // Добавь код сюда:
+enum TypeOfPizza {
+
+    case cheese
+    case pepperoni
+}
+
+protocol Pizza {
+    static func createPizza(with ingredient: TypeOfPizza)
+}
+
+class PepperoniPizza: Pizza {
+    static func createPizza(with ingredient: TypeOfPizza) {
+        print("Create pizza with \(ingredient)")
+    }
+}
+
+class CheesePizza: Pizza {
+    static func createPizza(with ingredient: TypeOfPizza) {
+        print("Create pizza with \(ingredient)")
+    }
+}
+
+
+class Visitor {
+    
+    let ingredient: TypeOfPizza
+    
+    init(ingredient: TypeOfPizza) {
+        self.ingredient = ingredient
+    }
+}
+
+let visitor = Visitor(ingredient: .cheese)
+
+if visitor.ingredient == .cheese {
+    let pizza = CheesePizza.createPizza(with: .cheese)
+}
+    else {
+        let pizza = PepperoniPizza.createPizza(with: .pepperoni)
+    }
 
 /*:
 ---
@@ -44,8 +84,49 @@ import Foundation
 */
 
 // Добавь код сюда:
+enum TypeOfTransport {
+    case bicycle
+    case car
+    case electricScooter
+    case bike
+}
 
+enum Condition {
+    case new
+    case secondHand
+}
 
+enum Fuel {
+    case petrol
+    case electricity
+    case notUseOil
+}
+
+protocol Transport {
+    
+    var typeOfTransport: TypeOfTransport { get }
+    var condition: Condition { get }
+    var fuel: Fuel { get }
+    var maxNumOfPeople: Int { get }
+}
+
+class TransportCreator: Transport {
+    
+    var typeOfTransport: TypeOfTransport
+    var condition: Condition
+    var fuel: Fuel
+    var maxNumOfPeople: Int
+    
+    init(typeOfTransport: TypeOfTransport, condition: Condition, fuel: Fuel, maxNumOfPeople: Int) {
+        
+        self.typeOfTransport = typeOfTransport
+        self.condition = condition
+        self.fuel = fuel
+        self.maxNumOfPeople = maxNumOfPeople
+    }
+}
+
+var car = TransportCreator(typeOfTransport: .car, condition: .new, fuel: .petrol, maxNumOfPeople: 5)
 /*:
 ---
 #### Задание 3
@@ -54,7 +135,39 @@ import Foundation
 */
 
 // Добавь код сюда:
-
+//enum Seats {
+//    case sport
+//    case comfort
+//}
+//
+//enum Engine {
+//    case sport
+//    case city
+//    case offroad
+//}
+//
+//enum Color {
+//    case white
+//    case black
+//    case red
+//    case blue
+//}
+//
+//enum GPS {
+//    case yes
+//    case no
+//}
+//
+//protocol Builder {
+//
+//    var seat: Seats { get }
+//    var engine: Engine { get }
+//    var color: Color { get }
+//    var gps: GPS { get }
+//
+//    func getResult()
+//
+//}
 
 /*:
 ---
@@ -64,7 +177,53 @@ import Foundation
 */
 
 // Добавь код сюда:
+protocol CoffeProtocol {
+    
+    func getPrice() -> Int
+    func getDescription() -> String
+}
 
+class Coffe: CoffeProtocol {
+
+    func getPrice() -> Int {
+        return 60
+    }
+    
+    func getDescription() -> String {
+        return "Coffe with milk"
+    }
+}
+
+class CoffeDecorator: CoffeProtocol {
+ 
+    private var decoratorType: CoffeProtocol
+
+    required init(decorator: CoffeProtocol) {
+        self.decoratorType = decorator
+    }
+    
+    func getPrice() -> Int {
+        return decoratorType.getPrice()
+    }
+    
+    func getDescription() -> String {
+        return decoratorType.getDescription()
+    }
+}
+
+class CoffeWithCoconutMilk: CoffeDecorator {
+    
+    override func getPrice() -> Int {
+        return super.getPrice() + 50
+    }
+    
+    override func getDescription() -> String {
+        return "Coffe with coconut milk"
+    }
+}
+
+var coffe = Coffe()
+var withCoconut = CoffeWithCoconutMilk(decorator: coffe)
 /*:
 ---
 #### Задание 5
@@ -73,7 +232,24 @@ import Foundation
 */
 
 // Добавь код сюда:
+class Date {
+    
+     func tellDate() {
+        print("25 يناير")
+    }
+}
 
+class DateAdapter: Date {
+    
+    override  func tellDate() {
+        print("25 января")
+    }
+}
+
+ var date = Date()
+date.tellDate()
+var dataAdapter = DateAdapter()
+dataAdapter.tellDate()
 /*:
 ---
 #### Задание 6
@@ -92,6 +268,7 @@ import Foundation
 */
 
 // Добавь код сюда:
+
 
 //: [Назад:  Универсальные шаблоны](@previous)  |  Страница 14] 
 
