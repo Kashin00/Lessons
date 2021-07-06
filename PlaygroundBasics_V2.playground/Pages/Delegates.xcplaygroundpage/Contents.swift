@@ -29,12 +29,12 @@ class User {
 
 protocol AlarmDelegate: AnyObject {
     
-    func getUp()
+    func alarmDidRang()
 }
 
 extension User: AlarmDelegate {
     
-    func getUp() {
+    func alarmDidRang() {
         print("User: So, I have to get up")
     }
 }
@@ -46,7 +46,7 @@ class AlarmClock {
     func turnOn() {
         
         print("Alarm Clock: The alarm is on")
-        delegate?.getUp()
+        delegate?.alarmDidRang()
     }
 }
 
@@ -66,70 +66,49 @@ class Me {
         
         let builder = Builder()
         builder.delegate = self
-        builder.createPreparationWork()
-        builder.choiceColor()
-        builder.painting()
-        builder.end()
+        builder.startPreparationWork()
+        builder.finishPreparationWork()
     }
 }
 
 
-protocol Builderable: AnyObject {
+protocol BuilderDelegate: AnyObject {
     
-    var color: String { get }
-    
-    func preparationWork()
-    func colorSelection()
-    func painting()
-    func end()
+    func builderDidPaintWall()
+    func builderDidFinishedRepairs()
     
 }
 
-extension Me: Builderable {
-    var color: String {
-     
-        return "white"
+extension Me: BuilderDelegate {
+    func builderDidPaintWall() {
+        print("Me: I prefer white color")
     }
     
-    func preparationWork() {}
-    
-    func colorSelection() {
-        
-        print("User: I prefer \(color) color")
+    func builderDidFinishedRepairs() {
+        print("Me: Thanks")
     }
     
-    func painting() {}
     
-    func end() {}
 }
 
 class Builder {
     
-    weak var delegate: Builderable?
+    weak var delegate: BuilderDelegate?
     
-    func createPreparationWork() {
+    func startPreparationWork() {
         
-        print("Builder: Creating preparation work")
-        delegate?.preparationWork()
+        print("Builder: Preparatory work started")
+        print("Builder: Preparatory work are finished")
+        print("Builder: What color did you choose?")
+        delegate?.builderDidPaintWall()
     }
     
-    func choiceColor() {
+    func finishPreparationWork() {
         
-        print("Builder: What color do you prefer?")
-        delegate?.colorSelection()
+        print("Builder: Repair is over")
+        delegate?.builderDidFinishedRepairs()
     }
     
-    func painting() {
-        
-        print("Builder: Painting....")
-        delegate?.painting()
-    }
-    
-    func end() {
-        
-        print("Builder: Renovation completed!")
-        delegate?.end()
-    }
 }
 
 let me = Me()
