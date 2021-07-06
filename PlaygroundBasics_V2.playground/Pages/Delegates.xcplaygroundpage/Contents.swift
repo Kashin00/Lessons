@@ -17,7 +17,41 @@ import Foundation
  */
 
 // Добавь код сюда:
+class User {
+    
+    func wakeUp() {
+        
+        let alarm = AlarmClock()
+        alarm.delegate = self
+        alarm.turnOn()
+    }
+}
 
+protocol AlarmDelegate: AnyObject {
+    
+    func alarmDidRang()
+}
+
+extension User: AlarmDelegate {
+    
+    func alarmDidRang() {
+        print("User: So, I have to get up")
+    }
+}
+
+class AlarmClock {
+    
+    weak var delegate: AlarmDelegate?
+    
+    func turnOn() {
+        
+        print("Alarm Clock: The alarm is on")
+        delegate?.alarmDidRang()
+    }
+}
+
+let user = User()
+user.wakeUp()
 /*:
 ---
 ## Задание 2
@@ -26,5 +60,57 @@ import Foundation
 ![Delegate.Task2](Playground.Delegate.Task2.png)
 */
 // Добавь код сюда:
+class Me {
+    
+    func repairs() {
+        
+        let builder = Builder()
+        builder.delegate = self
+        builder.startPreparationWork()
+        builder.finishPreparationWork()
+    }
+}
 
+
+protocol BuilderDelegate: AnyObject {
+    
+    func builderDidPaintWall()
+    func builderDidFinishedRepairs()
+    
+}
+
+extension Me: BuilderDelegate {
+    func builderDidPaintWall() {
+        print("Me: I prefer white color")
+    }
+    
+    func builderDidFinishedRepairs() {
+        print("Me: Thanks")
+    }
+    
+    
+}
+
+class Builder {
+    
+    weak var delegate: BuilderDelegate?
+    
+    func startPreparationWork() {
+        
+        print("Builder: Preparatory work started")
+        print("Builder: Preparatory work are finished")
+        print("Builder: What color did you choose?")
+        delegate?.builderDidPaintWall()
+    }
+    
+    func finishPreparationWork() {
+        
+        print("Builder: Repair is over")
+        delegate?.builderDidFinishedRepairs()
+    }
+    
+}
+
+let me = Me()
+me.repairs()
 //: [Назад: Протоколы](@previous)  |  Страница 12]  [Вперед:  Универсальные шаблоны](@next)
