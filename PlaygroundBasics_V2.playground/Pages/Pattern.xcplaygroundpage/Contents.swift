@@ -58,9 +58,7 @@ class CheesePizza: Pizza {
 }
 
 class Factory {
-    
-//    static let factory = Factory()
-    
+        
     static func createPizza(with ingrediend: TypeOfPizza) -> Pizza {
         
         switch ingrediend {
@@ -81,50 +79,126 @@ let visitir = Factory.createPizza(with: .cheese)
 */
 
 // Добавь код сюда:
-enum TypeOfTransport {
-    case bicycle
-    case car
-    case electricScooter
-    case bike
-}
-
-enum Condition {
-    case new
-    case secondHand
-}
-
-enum Fuel {
-    case petrol
-    case electricity
-    case notUseOil
-}
-
-protocol Transport {
+protocol Bicycle {
     
-    var typeOfTransport: TypeOfTransport { get }
-    var condition: Condition { get }
-    var fuel: Fuel { get }
-    var maxNumOfPeople: Int { get }
+    func getBicycleInfo() -> String
 }
 
-class TransportCreator: Transport {
+protocol Car {
     
-    var typeOfTransport: TypeOfTransport
-    var condition: Condition
-    var fuel: Fuel
-    var maxNumOfPeople: Int
+    func getCarInfo() -> String
+}
+
+protocol Bike {
     
-    init(typeOfTransport: TypeOfTransport, condition: Condition, fuel: Fuel, maxNumOfPeople: Int) {
-        
-        self.typeOfTransport = typeOfTransport
-        self.condition = condition
-        self.fuel = fuel
-        self.maxNumOfPeople = maxNumOfPeople
+    func getBikeInfo() -> String
+}
+
+protocol Scooter {
+    
+    func getScooterInfo() -> String
+}
+
+protocol AbstractFactory {
+    
+    func createBicycle() -> Bicycle
+    func createCar() -> Car
+    func createBike() -> Bike
+    func createSkooter() -> Scooter
+}
+
+class NewBicycle: Bicycle {
+    
+    func getBicycleInfo() -> String {
+        return "New red bycicle"
     }
 }
 
-let car = TransportCreator(typeOfTransport: .car, condition: .new, fuel: .petrol, maxNumOfPeople: 5)
-let bike = TransportCreator(typeOfTransport: .bike, condition: .new, fuel: .electricity, maxNumOfPeople: 2)
+class UsedBicycle: Bicycle {
+    
+    func getBicycleInfo() -> String {
+        return "Used red bycicle"
+    }
+}
+
+class UsedScooter: Scooter {
+    
+    func getScooterInfo() -> String {
+        return "Used black, gas scooter"
+    }
+}
+
+class NewScooter: Scooter {
+    
+    func getScooterInfo() -> String {
+        return "New black, gas scooter"
+    }
+}
+
+class NewCar: Car {
+    func getCarInfo() -> String {
+        return "New white, gas car"
+    }
+}
+
+class UsedCar: Car {
+    func getCarInfo() -> String {
+        return "Used white, gas car"
+    }
+}
+
+class UsedBike: Bike {
+    
+    func getBikeInfo() -> String {
+        return "Used electric bike"
+    }
+}
+
+class NewBike: Bike {
+    
+    func getBikeInfo() -> String {
+        return "New electric bike"
+    }
+}
+
+class NewTransportFactory: AbstractFactory {
+    func createBicycle() -> Bicycle {
+        return NewBicycle()
+    }
+    
+    func createCar() -> Car {
+        return NewCar()
+    }
+    
+    func createBike() -> Bike {
+        return NewBike()
+    }
+    
+    func createSkooter() -> Scooter {
+        return NewScooter()
+    }
+}
+
+class UsedTransportFactory: AbstractFactory {
+    
+    func createBicycle() -> Bicycle {
+        return UsedBicycle()
+    }
+    
+    func createCar() -> Car {
+        return UsedCar()
+    }
+    
+    func createBike() -> Bike {
+        return UsedBike()
+    }
+    
+    func createSkooter() -> Scooter {
+        return UsedScooter()
+    }
+}
+
+
 /*:
 ---
 #### Задание 3
@@ -308,7 +382,7 @@ wareHouse
 */
 
 // Добавь код сюда:
-
+    
 
 //: [Назад:  Универсальные шаблоны](@previous)  |  Страница 14] 
 
