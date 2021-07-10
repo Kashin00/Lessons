@@ -42,12 +42,7 @@ country.forEach { print($0.value) }
  - Note: 👆 _Получи из словаря значение по ключу VA_
  */
 // Добавь код сюда:
-country.forEach{
-    
-    if $0.key == "VA" {
-        print($0.value)
-    }
-}
+country["VA"]
 
 /*:
 ---
@@ -89,13 +84,10 @@ var people = [
  */
 // Добавь код сюда:
 var firstName = [String]()
-people.forEach {
-    
-    for i in $0 {
-        
-        if i.key == "firstName" {
-            firstName.append(i.value)
-        }
+
+for value in people {
+    if let firstNames = value["firstName"] {
+        firstName.append(firstNames)
     }
 }
 print(firstName)
@@ -149,13 +141,23 @@ var peopleData: [[String:Any]] = [
 */
 // Добавь код сюда:
 
-var arrangedAscendArray = peopleData.sorted { ($0["score"] as! Int) > ($1["score"] as! Int) }
+var arrangedAscendArray = peopleData.sorted {(first, second) -> Bool in
+    
+    if let first = first["score"] as? Int, let second = second["score"] as? Int {
+        return first > second
+    }
+
+    return false
+}
+
 var counter = 1
 for item in arrangedAscendArray {
   if let name = item["firstName"],
      let lastName = item["lastName"],
      let score = item["score"] {
     print("\(counter). \(name) \(lastName) - \(score)")
+    counter += 1
   }
 }
+
 //: [Назад: Кортежи, перечисления и псевдонимы типов](@previous)  |  Страница 9  |  [Вперед: Структуры и классы](@next)
