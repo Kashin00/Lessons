@@ -23,6 +23,13 @@ import Foundation
  Min: 1
  */
 // Добавь код сюда:
+func calculateMin(_ firstValue: Int, _ secondValue: Int) -> Int {
+    if firstValue > secondValue {
+        return secondValue
+    } else {
+        return firstValue
+    }
+}
 
 /*:
 ---
@@ -44,7 +51,21 @@ import Foundation
  */
 
 // Добавь код сюда:
-
+func countDown(_ n: Int) {
+     var counter = n
+        
+     while counter >= 1{
+        
+        sleep(1)
+        print(counter)
+        
+        if counter == 1 {
+            print("GO!")
+        }
+        counter -= 1
+    }
+        
+}
 
 /*:
 ---
@@ -58,7 +79,14 @@ import Foundation
  Hi, NIX
  */
 // Добавь код сюда:
-
+func repeatPrint(_ s: String, _ n: Int) {
+    var counter = n
+    
+    while counter > 0 {
+        print(s)
+        counter -= 1
+    }
+}
 /*:
 ---
 #### Задание 4
@@ -71,6 +99,10 @@ import Foundation
  [3, 2, 1]
  */
 // Добавь код сюда:
+func reverse(array: [Int]) {
+    let reversedArray = Array(array.reversed())
+    print(reversedArray)
+}
 
 /*:
 ---
@@ -96,6 +128,13 @@ import Foundation
  5! = 120
  */
 // Добавь код сюда:
+func factorial(n: Int) -> Int {
+    
+    if n == 0 {
+        return 1
+    }
+    return n * factorial(n: n - 1)
+}
 
 /*:
 ---
@@ -119,6 +158,18 @@ import Foundation
 []
  */
 // Добавь код сюда:
+func filterDigitLength(array: [UInt], n: Int) {
+    var resultArray = [Int]()
+    let mappedArray = array.map{String($0)}
+    mappedArray.forEach{
+        
+        if $0.count == n {
+            guard let value = Int($0) else { return }
+            resultArray.append(value)
+        }
+    }
+    print(resultArray)
+}
 
 /*:
 ---
@@ -141,9 +192,15 @@ import Foundation
 ["jpg", "pdf", "mp3"]
  */
 // Добавь код сюда:
-
-
-
+func getExtension(arrayStrings: [String]) -> [String] {
+    let resultArray: [String] = arrayStrings.map {
+        var valueArray = $0.components(separatedBy: ".")
+        valueArray.removeFirst()
+        return valueArray.first ?? "...."
+    }
+    return resultArray
+}
+print(getExtension(arrayStrings: ["project1.dock", "project", "project1.mp3", "project2.pdf"]))
 /*:
 ---
 ### Продвинутый уровень:
@@ -163,7 +220,26 @@ Sum of missing numbers = 29
 */
 
 // Добавь код сюда:
+func sumOfMissingNumbersFunc(array: [UInt]) -> UInt {
 
+    guard var min = array.min() else { return 0 }
+    guard let max = array.max() else {return 0}
+    var rez: UInt = 0
+    let array = array
+
+    while max > min {
+
+        if !array.contains(min) {
+            rez += min
+        }
+
+        min += 1
+    }
+
+    return rez
+}
+var sumOfMissingNumbers = sumOfMissingNumbersFunc(array: [1, 3, 5, 7, 10])
+print(sumOfMissingNumbers)
 /*:
 ---
 #### Задание 9:
@@ -183,8 +259,23 @@ _Output:_\
 "A-Bb-Cccc=Dddd"
 */
 // Добавь код сюда:
-
-
+func addLittersAndPrintTheResult(string: String) {
+    
+    var newString = ""
+    let elementsArray = ["-", "=", "+"]
+    
+    string.forEach {
+        let randomElement = arc4random_uniform(UInt32(elementsArray.count))
+        newString.append($0.uppercased())
+        $0.uppercased()
+        newString.append($0)
+        newString.append(elementsArray[Int(randomElement)])
+    }
+    
+    newString.removeLast()
+    print(newString)
+}
+addLittersAndPrintTheResult(string: "abcd")
 /*:
 ---
 #### Задание 10:
@@ -203,6 +294,13 @@ This Is A Title
 */
 
 // Добавь код сюда:
+func makeUppearcasedAndPrint(_ string: String) {
+    let result = string.split(separator: " ").map { $0.capitalized }.joined(separator: " ")
+    print(result)
+    
+}
+
+makeUppearcasedAndPrint("This is array")
 
 /*:
 ---
@@ -220,7 +318,12 @@ D shows 2 times
 */
 
 // Добавь код сюда:
-
+func charInArray(array: [String], char: String) {
+    var counter = 0
+    
+    array.forEach{ if $0 == char { counter += 1}}
+    print("\(char) shows \(counter) times")
+}
 /*:
 ---
 ## Задание 12:
@@ -243,7 +346,20 @@ False
 */
 
 // Добавь код сюда:
+func validateSubsets(superset: Set<Int>, of: [Set<Int>]) -> Bool {
+    
+    for item in of {
+        if !item.isSubset(of: superset) {
+            return false
+        }
+    }
+    return true
+}
 
+let set: [Set<Int>] = [[1, 2], [2, 3], [1, 3], [1, 2, 3]]
+let superset: Set<Int> = [4,5,6]
+
+print(validateSubsets(superset: superset, of: set))
 //: [Назад: Управление потоком](@previous)  |  Страница 6  |  [Вперед: Замыкания](@next)
 
 
