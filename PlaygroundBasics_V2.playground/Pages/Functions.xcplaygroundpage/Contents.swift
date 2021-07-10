@@ -192,27 +192,15 @@ func filterDigitLength(array: [UInt], n: Int) {
 ["jpg", "pdf", "mp3"]
  */
 // Добавь код сюда:
-func getExtension(_ array: [String]) {
-    var arrayOfExtension = [String]()
-    var formatLenght = 3
-    var temp = ""
-
-    array.forEach {
-        
-        for _ in 1...3 {
-
-            let index = $0.index($0.startIndex, offsetBy: $0.count - formatLenght)
-            formatLenght -= 1
-            temp.insert($0[index], at: temp.endIndex)
-            
-        }
-        formatLenght = 3
-        arrayOfExtension.append(temp)
-        temp = ""
+func getExtension(arrayStrings: [String]) -> [String] {
+    let resultArray: [String] = arrayStrings.map {
+        var valueArray = $0.components(separatedBy: ".")
+        valueArray.removeFirst()
+        return valueArray.first ?? "...."
     }
-    print(arrayOfExtension)
+    return resultArray
 }
-getExtension(["project1.jpg", "project1.pdf", "project1.pdf"])
+print(getExtension(arrayStrings: ["project1.dock", "project", "project1.mp3", "project2.pdf"]))
 /*:
 ---
 ### Продвинутый уровень:
@@ -271,7 +259,7 @@ _Output:_\
 "A-Bb-Cccc=Dddd"
 */
 // Добавь код сюда:
-func addLiters(string: String) {
+func addLittersAndPrintTheResult(string: String) {
     
     var newString = ""
     let elementsArray = ["-", "=", "+"]
@@ -287,7 +275,7 @@ func addLiters(string: String) {
     newString.removeLast()
     print(newString)
 }
-addLiters(string: "abcd")
+addLittersAndPrintTheResult(string: "abcd")
 /*:
 ---
 #### Задание 10:
@@ -306,12 +294,13 @@ This Is A Title
 */
 
 // Добавь код сюда:
-func makeTitle(_ string: String) {
+func makeUppearcasedAndPrint(_ string: String) {
     let result = string.split(separator: " ").map { $0.capitalized }.joined(separator: " ")
     print(result)
+    
 }
 
-makeTitle("This is array")
+makeUppearcasedAndPrint("This is array")
 
 /*:
 ---
