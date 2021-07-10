@@ -338,9 +338,7 @@ _Output:_\
 */
 // Добавь код сюда:
 let mixedArray: [Any] = [1, 2, "a", "b"]
-var numberArray = [Any]()
-mixedArray.forEach { if $0 is Int {
-    numberArray.append($0)
-}}
+var numberArray = [Int]()
+numberArray = mixedArray.compactMap{ $0 as? Int }
 numberArray
 //: [Назад: Коллекции. Массивы и множества](@previous)  |  Страница 5  |  [Вперед:  Функции](@next)
