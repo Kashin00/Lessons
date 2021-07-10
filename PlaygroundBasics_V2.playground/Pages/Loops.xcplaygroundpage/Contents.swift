@@ -39,7 +39,7 @@ import Foundation
  - Обьяви переменную `n` и проинициализируй ее  любым целочисленными значением.
 */
 // Добавь код сюда:
-
+var n = 5
 /*:
  - Напиши код, который выведет в консоль фразу _I like Swift!_ `n` раз.
  
@@ -57,7 +57,9 @@ _Output:_\
  */
 
 // Добавь код сюда:
-
+for _ in 1...n {
+    print("I like Swift!")
+}
 /*:
 ---
 #### Задание 2
@@ -75,7 +77,9 @@ n = 5\
  25
 */
 // Добавь код сюда:
-
+for i in 1...n {
+    print(i * i)
+}
 /*:
  - Выведи в консоль степени числа `2`, которые меньше или равны `n`.
  
@@ -91,6 +95,12 @@ n = 100\
  64
  */
  // Добавь код сюда:
+var power = 0
+while power <= n {
+    print(pow(2,power))
+    power += 1
+}
+
 
 /*:
  - Нарисуй в консоли квадрат из `n` на `n` звездочек (⭐)
@@ -105,6 +115,20 @@ n = 4\
  
  */
 // Добавь код сюда:
+var index = 0
+var arrayOfString = [String]()
+var someStr = ""
+
+repeat {
+    for _ in 0...n {
+        someStr.append("*")
+    }
+    arrayOfString.append(someStr)
+    someStr = ""
+    index += 1
+} while index < n
+
+arrayOfString.forEach { print($0) }
 
 /*:
  - Нарисуй в консоли треугольник из `n` звездочек (⭐)
@@ -119,6 +143,17 @@ n = 4\
  */
 // Добавь код сюда:
 
+var iterator = 0
+var ar = [String]()
+var str = ""
+
+repeat {
+    str.append("*")
+    ar.append(str)
+    iterator += 1
+} while iterator < n
+
+ar.forEach { print($0) }
 
 /*:
 ---
@@ -129,7 +164,57 @@ n = 4\
  - Сделайте быструю сортировку  (quick sort).
 */
 // Добавь код сюда:
+var array = [1,2,4,5,8,6,45,23,432,23,6,34,12,21,65,42,97,67,3,7,9]
 
+//пузырьковая
+
+func bubbleSort(_ arr: [Int]) -> [Int] {
+    
+    var array = arr
+    
+    for _ in 0..<array.count - 1 {
+        
+        for j in 0..<array.count - 1 {
+            
+            if array[j] > array[j + 1] {
+                
+                let temp = array[j]
+                array[j] = array[j + 1]
+                array[j + 1] = temp
+            }
+            
+        }
+        
+    }
+    return array
+}
+
+
+//быстрая
+
+func quicksortNaive(_ array: [Int]) -> [Int] {
+    guard array.count > 1 else {
+      return array
+    }
+    let pivot = array[array.count / 2]
+    let less = array.filter { $0 < pivot }
+    let equal = array.filter { $0 == pivot }
+    let greater = array.filter { $0 > pivot }
+    return quicksortNaive(less) + equal + quicksortNaive(greater)
+  }
+
+// линейная
+for index in 1..<array.count {
+    var jIndex = index - 1
+    let value = array[index]
+
+    while jIndex >= 0 && value < array[jIndex] {
+        array[jIndex + 1] = array[jIndex]
+        jIndex -= 1
+    }
+    array[jIndex + 1] = value
+}
+print(array)
 /*:
 ---
 ### Продвинутый уровень:
@@ -140,8 +225,51 @@ n = 4\
  - Выведи в консоль полученный массив.
 */
 // Добавь код сюда:
+var countryArray = [String]()
+
+func checkString(_ string: String) {
+    
+    var string = string
+    
+    if string.count > 5 && !string.contains("A") {
+        countryArray.append(string)
+    }else if string.contains("A") {
+        for (index, item) in string.enumerated() {
+             
+            if item == "A" {
+                
+                string.remove(at: string.index(string.startIndex, offsetBy: index))
+                string.insert("B", at: string.index(string.startIndex, offsetBy: index))
+                countryArray.append(string)
+            }
+        }
+    }
+}
+
+var ukraine = "Ukraine"
+var albania = "lbAnia"
+var poland = "Poland"
+var argentina = "Argentina"
+var czech = "Czech"
+var slovakia = "Slovakia"
+var austria = "Austria"
+var germany = "Germany"
+var greenland = "greenland"
+var canada = "Canada"
+
+checkString(ukraine)
+checkString(albania)
+checkString(poland)
+checkString(argentina)
+checkString(czech)
+checkString(slovakia)
+checkString(austria)
+checkString(germany)
+checkString(greenland)
+checkString(canada)
 
 
+print(countryArray)
 /*:
 ---
 #### Задание 5:
@@ -166,6 +294,7 @@ _Output:_\
  True
 */
 // Добавь код сюда:
+let word = "constant"
 
 /*:
 ---
@@ -181,8 +310,17 @@ let word ="Hello"\
 _Output:_\
  "hhheeellllllooo"
 */
-// Добавь код сюда:
 
+// Добавь код сюда:
+let wordd = "hello"
+var newWordd = ""
+
+wordd.forEach {
+    for _ in 1...3 {
+        newWordd += String($0)
+    }
+}
+print(newWordd)
 
 /*:
 ---
@@ -199,5 +337,8 @@ _Output:_\
  [1, 2]
 */
 // Добавь код сюда:
-
+let mixedArray: [Any] = [1, 2, "a", "b"]
+var numberArray = [Int]()
+numberArray = mixedArray.compactMap{ $0 as? Int }
+numberArray
 //: [Назад: Коллекции. Массивы и множества](@previous)  |  Страница 5  |  [Вперед:  Функции](@next)
