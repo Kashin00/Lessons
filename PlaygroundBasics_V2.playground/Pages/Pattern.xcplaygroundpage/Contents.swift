@@ -79,126 +79,160 @@ let visitir = Factory.createPizza(with: .cheese)
 */
 
 // Добавь код сюда:
-protocol Bicycle {
+
+protocol Vehicle {
     
-    func getBicycleInfo() -> String
+    var condition: String {get}
+    var fuel: String {get}
+    var maxPeople: Int {get}
+    func printDescription()
 }
 
-protocol Car {
+class Bycicle: Vehicle {
+    var condition: String = "new"
     
-    func getCarInfo() -> String
-}
-
-protocol Bike {
+    var fuel: String = "no one"
     
-    func getBikeInfo() -> String
-}
-
-protocol Scooter {
+    var maxPeople: Int = 1
     
-    func getScooterInfo() -> String
-}
-
-protocol AbstractFactory {
-    
-    func createBicycle() -> Bicycle
-    func createCar() -> Car
-    func createBike() -> Bike
-    func createSkooter() -> Scooter
-}
-
-class NewBicycle: Bicycle {
-    
-    func getBicycleInfo() -> String {
-        return "New red bycicle"
+    func printDescription() {
+        print("condition:", condition, "\n", "fuel:", fuel, "\n", "maxPeople:", maxPeople)
     }
 }
 
-class UsedBicycle: Bicycle {
+class Car: Vehicle {
+    var condition: String = "new"
     
-    func getBicycleInfo() -> String {
-        return "Used red bycicle"
-    }
-}
-
-class UsedScooter: Scooter {
+    var fuel: String = "petrol"
     
-    func getScooterInfo() -> String {
-        return "Used black, gas scooter"
-    }
-}
-
-class NewScooter: Scooter {
+    var maxPeople: Int = 5
     
-    func getScooterInfo() -> String {
-        return "New black, gas scooter"
+    func printDescription() {
+        print("condition:", condition, "\n", "fuel:", fuel, "\n", "maxPeople:", maxPeople)
+    }
+}
+class Scooter: Vehicle {
+    var condition: String = "new"
+    
+    var fuel: String = "petrol"
+    
+    var maxPeople: Int = 2
+    
+    func printDescription() {
+        print("condition:", condition, "\n", "fuel:", fuel, "\n", "maxPeople:", maxPeople)
     }
 }
 
-class NewCar: Car {
-    func getCarInfo() -> String {
-        return "New white, gas car"
+class ElectricScooter: Vehicle {
+    var condition: String = "new"
+    
+    var fuel: String = "electricity"
+    
+    var maxPeople: Int = 2
+    
+    func printDescription() {
+        print("condition:", condition, "\n", "fuel:", fuel, "\n", "maxPeople:", maxPeople)
     }
 }
 
-class UsedCar: Car {
-    func getCarInfo() -> String {
-        return "Used white, gas car"
+class Bike: Vehicle {
+    var condition: String = "new"
+    
+    var fuel: String = "petrol"
+    
+    var maxPeople: Int = 2
+    
+    func printDescription() {
+        print("condition:", condition, "\n", "fuel:", fuel, "\n", "maxPeople:", maxPeople)
     }
 }
 
 class UsedBike: Bike {
     
-    func getBikeInfo() -> String {
-        return "Used electric bike"
+    override init() {
+        super.init()
+        self.condition = "used"
+    }
+}
+class UsedCar: Car {
+    override init() {
+        super.init()
+        self.condition = "used"
+    }
+}
+class UsedScooter: Scooter {
+    override init() {
+        super.init()
+        self.condition = "used"
+    }
+}
+class UsedElectricScooter: ElectricScooter {
+    override init() {
+        super.init()
+        self.condition = "used"
     }
 }
 
-class NewBike: Bike {
-    
-    func getBikeInfo() -> String {
-        return "New electric bike"
+class UsedBycicle: Bycicle {
+    override init() {
+        super.init()
+        self.condition = "used"
     }
 }
 
-class NewTransportFactory: AbstractFactory {
-    func createBicycle() -> Bicycle {
-        return NewBicycle()
+
+protocol AbstractFactory {
+    
+    func createBycicle() -> Vehicle
+    func createBike() -> Vehicle
+    func createCar() -> Vehicle
+    func createScooter() -> Vehicle
+    func createElectricScooter() -> Vehicle
+}
+
+class NewVehicle: AbstractFactory {
+    func createBycicle() -> Vehicle {
+        return Bycicle()
     }
     
-    func createCar() -> Car {
-        return NewCar()
+    func createBike() -> Vehicle {
+        return Bike()
     }
     
-    func createBike() -> Bike {
-        return NewBike()
+    func createCar() -> Vehicle {
+        return Car()
     }
     
-    func createSkooter() -> Scooter {
-        return NewScooter()
+    func createScooter() -> Vehicle {
+        return Scooter()
+    }
+    
+    func createElectricScooter() -> Vehicle {
+        return ElectricScooter()
     }
 }
 
-class UsedTransportFactory: AbstractFactory {
-    
-    func createBicycle() -> Bicycle {
-        return UsedBicycle()
+class UsedVehicle: AbstractFactory {
+    func createBycicle() -> Vehicle {
+        return UsedBycicle()
     }
     
-    func createCar() -> Car {
-        return UsedCar()
-    }
-    
-    func createBike() -> Bike {
+    func createBike() -> Vehicle {
         return UsedBike()
     }
     
-    func createSkooter() -> Scooter {
+    func createCar() -> Vehicle {
+        return UsedCar()
+    }
+    
+    func createScooter() -> Vehicle {
         return UsedScooter()
     }
+    
+    func createElectricScooter() -> Vehicle {
+        return UsedElectricScooter()
+    }
 }
-
-
 /*:
 ---
 #### Задание 3
@@ -274,21 +308,35 @@ var withCoconut = CoffeWithCoconutMilk(decorator: coffe)
 // Добавь код сюда:
 class Date {
     
-     func tellDate() {
+     func tellDate()  {
         print("25 يناير")
+    }
+}
+
+class Adaptee {
+    
+    func converDate() {
+        print("25 января")
     }
 }
 
 class DateAdapter: Date {
     
-    override  func tellDate() {
-        print("25 января")
+    let adaptee: Adaptee
+    
+    init(adaptee: Adaptee) {
+        self.adaptee = adaptee
     }
+    
+    override func tellDate() {
+        adaptee.converDate()
+    }
+    
 }
 
  var date = Date()
 date.tellDate()
-var dataAdapter = DateAdapter()
+var dataAdapter = DateAdapter(adaptee: Adaptee())
 dataAdapter.tellDate()
 /*:
 ---
@@ -296,82 +344,104 @@ dataAdapter.tellDate()
 - Предположим, твой модуль представляет собой некий конвеер, который обрабатывает  различные предметы, которые на него попадают. На данный момент есть возможность переработать следующие типы предметов: пищевые отходы, электронику, бумагу и стекло. Для каждого типа предмета в системе должен быть предусмотрен свой обработчик, который принимает на вход предмет, сканирует его и определяет возможность переработки. Если этот предмет того типа, который он "умеет" обрабатывать, то он выполняет обработку, если нет, то передает следующему обработчику. Если же никто из обработчиков не смог переработать предмет, то предмет должен в конечном итоге попасть "в руки"  обьекту "Склад", который дальше уже не передает предмет, а ставит на нем специальный маркер.
  - Note: 👆 _Используй паттерн цепочка обязанностей_
 */
-
-
 // Добавь код сюда:
 
-var wareHouse = [String]()
-var handlerItems = [String]()
+protocol HandlerProtocol: class {
+    
+    var nextHandler: HandlerProtocol? { get set }
+    func setNext(handler: HandlerProtocol) -> HandlerProtocol
+    func handle(request: String) -> String?
+}
 
-class Responder {
+extension HandlerProtocol {
     
-    var canHandl = [String]()
-    var next: Responder?
+    func setNext(handler: HandlerProtocol) -> HandlerProtocol {
+        nextHandler = handler
+        return handler
+    }
+}
+class FoodHandler: HandlerProtocol {
+    var nextHandler: HandlerProtocol?
+    
 
-    init(canHandl: [String]) {
-        self.canHandl = canHandl
-    }
     
-    func setNext(_ next: Responder) {
-        self.next = next
-    }
-    
-    func handle(for item: String) -> String {
-        
-        if canHandl.contains(item) {
-            print("Done")
-            handlerItems.append(item)
-            return item
-        } else if let next = next {
-            print("Cant handle. Processing to the next handler.....")
-            return next.handle(for: item)
+    func handle(request: String) -> String? {
+        if request == "food waste" {
+            
+            return "Food handler handeled \(request)"
+        } else {
+            
+            return nextHandler?.handle(request: request)
         }
+    }
+}
+
+class PaperHandler: HandlerProtocol {
+    var nextHandler: HandlerProtocol?
+    
+    func handle(request: String) -> String? {
+        if request == "paper" {
+            
+            return "Paper handler handeled \(request)"
+        } else {
+            return nextHandler?.handle(request: request)
+        }
+    }
+}
+
+class GlassHandler: HandlerProtocol {
+    var nextHandler: HandlerProtocol?
+    
+    func handle(request: String) -> String? {
+        if request == "glass" {
+            
+            return "Glass handler handeled \(request)"
+        } else {
+            return nextHandler?.handle(request: request)
+        }
+    }
+}
+
+class ElectricHandler: HandlerProtocol {
+    var nextHandler: HandlerProtocol?
+    
+    func handle(request: String) -> String? {
+        if request == "electric" {
+            
+            return "Electric handler handeled \(request)"
+        } else {
+            return nextHandler?.handle(request: request)
+        }
+    }
+}
+var wareHouse = [String]()
+
+class Recycle {
+    
+    static func handle(with handler: HandlerProtocol) {
         
-        print("Cant handle \(item)")
-        wareHouse.append(item)
-        return "Added to wareHouse"
+        let request = ["paper", "glass"]
+        
+        request.forEach {
+            
+            guard let result = handler.handle(request: $0) else {
+                wareHouse.append($0)
+                return
+            }
+            
+            print(result)
+        }
     }
 }
 
+let foodHandler = FoodHandler()
+let glassHandler = GlassHandler()
+let paperHandler = PaperHandler()
+let electricHandler = ElectricHandler()
 
-class Handler {
-    
-     var foodWasteHandler: Responder
-     var electricsHandler: Responder
-     var papepHandler: Responder
-     var glassHandler: Responder
-    
-    init(foodWasteHandler: Responder, electricsHandler: Responder, papepHandler: Responder, glassHandler: Responder) {
-        self.foodWasteHandler = foodWasteHandler
-        self.electricsHandler = electricsHandler
-        self.papepHandler = papepHandler
-        self.glassHandler = glassHandler
-    }
-    
-    func recycle(_ item: String) {
-        print((foodWasteHandler.handle(for: item)))
-    }
-    
-}
+foodHandler.setNext(handler: glassHandler).setNext(handler: paperHandler).setNext(handler: electricHandler)
 
-
-let foodWaste = Responder(canHandl: ["foodWaste"])
-let electrics = Responder(canHandl: ["electrics"])
-let paper = Responder(canHandl: ["paper"])
-let glass = Responder(canHandl: ["glass"])
-
-foodWaste.setNext(electrics)
-electrics.setNext(paper)
-paper.setNext(glass)
-
-let handler = Handler(foodWasteHandler: foodWaste, electricsHandler: electrics, papepHandler: paper, glassHandler: glass)
-
-handler.recycle("paper")
-handler.recycle("iron")
-
-handlerItems
-wareHouse
-
+Recycle.handle(with: foodHandler)
 
 
 /*:
