@@ -35,7 +35,42 @@ import Foundation
 */
 
 // Добавь код сюда:
+enum TypeOfPizza {
+    
+    case cheese
+    case pepperoni
+}
 
+protocol Pizza {
+    func pizzaInfo()
+}
+
+class PepperoniPizza: Pizza {
+    func pizzaInfo() {
+        print("Pizza with pepperoni")
+    }
+}
+
+class CheesePizza: Pizza {
+    func pizzaInfo() {
+        print("Pizza with cheese")
+    }
+}
+
+class Factory {
+        
+    static func createPizza(with ingrediend: TypeOfPizza) -> Pizza {
+        
+        switch ingrediend {
+        case .cheese:
+            return CheesePizza()
+        case .pepperoni:
+            return PepperoniPizza()
+        }
+    }
+}
+    
+let visitir = Factory.createPizza(with: .cheese)
 /*:
 ---
 #### Задание 2
@@ -45,7 +80,159 @@ import Foundation
 
 // Добавь код сюда:
 
+protocol Vehicle {
+    
+    var condition: String {get}
+    var fuel: String {get}
+    var maxPeople: Int {get}
+    func printDescription()
+}
 
+class Bycicle: Vehicle {
+    var condition: String = "new"
+    
+    var fuel: String = "no one"
+    
+    var maxPeople: Int = 1
+    
+    func printDescription() {
+        print("condition:", condition, "\n", "fuel:", fuel, "\n", "maxPeople:", maxPeople)
+    }
+}
+
+class Car: Vehicle {
+    var condition: String = "new"
+    
+    var fuel: String = "petrol"
+    
+    var maxPeople: Int = 5
+    
+    func printDescription() {
+        print("condition:", condition, "\n", "fuel:", fuel, "\n", "maxPeople:", maxPeople)
+    }
+}
+class Scooter: Vehicle {
+    var condition: String = "new"
+    
+    var fuel: String = "petrol"
+    
+    var maxPeople: Int = 2
+    
+    func printDescription() {
+        print("condition:", condition, "\n", "fuel:", fuel, "\n", "maxPeople:", maxPeople)
+    }
+}
+
+class ElectricScooter: Vehicle {
+    var condition: String = "new"
+    
+    var fuel: String = "electricity"
+    
+    var maxPeople: Int = 2
+    
+    func printDescription() {
+        print("condition:", condition, "\n", "fuel:", fuel, "\n", "maxPeople:", maxPeople)
+    }
+}
+
+class Bike: Vehicle {
+    var condition: String = "new"
+    
+    var fuel: String = "petrol"
+    
+    var maxPeople: Int = 2
+    
+    func printDescription() {
+        print("condition:", condition, "\n", "fuel:", fuel, "\n", "maxPeople:", maxPeople)
+    }
+}
+
+class UsedBike: Bike {
+    
+    override init() {
+        super.init()
+        self.condition = "used"
+    }
+}
+class UsedCar: Car {
+    override init() {
+        super.init()
+        self.condition = "used"
+    }
+}
+class UsedScooter: Scooter {
+    override init() {
+        super.init()
+        self.condition = "used"
+    }
+}
+class UsedElectricScooter: ElectricScooter {
+    override init() {
+        super.init()
+        self.condition = "used"
+    }
+}
+
+class UsedBycicle: Bycicle {
+    override init() {
+        super.init()
+        self.condition = "used"
+    }
+}
+
+
+protocol AbstractFactory {
+    
+    func createBycicle() -> Vehicle
+    func createBike() -> Vehicle
+    func createCar() -> Vehicle
+    func createScooter() -> Vehicle
+    func createElectricScooter() -> Vehicle
+}
+
+class NewVehicle: AbstractFactory {
+    func createBycicle() -> Vehicle {
+        return Bycicle()
+    }
+    
+    func createBike() -> Vehicle {
+        return Bike()
+    }
+    
+    func createCar() -> Vehicle {
+        return Car()
+    }
+    
+    func createScooter() -> Vehicle {
+        return Scooter()
+    }
+    
+    func createElectricScooter() -> Vehicle {
+        return ElectricScooter()
+    }
+}
+
+class UsedVehicle: AbstractFactory {
+    func createBycicle() -> Vehicle {
+        return UsedBycicle()
+    }
+    
+    func createBike() -> Vehicle {
+        return UsedBike()
+    }
+    
+    func createCar() -> Vehicle {
+        return UsedCar()
+    }
+    
+    func createScooter() -> Vehicle {
+        return UsedScooter()
+    }
+    
+    func createElectricScooter() -> Vehicle {
+        return UsedElectricScooter()
+    }
+}
 /*:
 ---
 #### Задание 3
@@ -64,7 +251,53 @@ import Foundation
 */
 
 // Добавь код сюда:
+protocol CoffeProtocol {
+    
+    func getPrice() -> Int
+    func getDescription() -> String
+}
 
+class Coffe: CoffeProtocol {
+
+    func getPrice() -> Int {
+        return 60
+    }
+    
+    func getDescription() -> String {
+        return "Coffe with milk"
+    }
+}
+
+class CoffeDecorator: CoffeProtocol {
+ 
+    private var decoratorType: CoffeProtocol
+
+    required init(decorator: CoffeProtocol) {
+        self.decoratorType = decorator
+    }
+    
+    func getPrice() -> Int {
+        return decoratorType.getPrice()
+    }
+    
+    func getDescription() -> String {
+        return decoratorType.getDescription()
+    }
+}
+
+class CoffeWithCoconutMilk: CoffeDecorator {
+    
+    override func getPrice() -> Int {
+        return super.getPrice() + 50
+    }
+    
+    override func getDescription() -> String {
+        return "Coffe with coconut milk"
+    }
+}
+
+var coffe = Coffe()
+var withCoconut = CoffeWithCoconutMilk(decorator: coffe)
 /*:
 ---
 #### Задание 5
@@ -73,15 +306,142 @@ import Foundation
 */
 
 // Добавь код сюда:
+class Date {
+    
+     func tellDate()  {
+        print("25 يناير")
+    }
+}
 
+class Adaptee {
+    
+    func converDate() {
+        print("25 января")
+    }
+}
+
+class DateAdapter: Date {
+    
+    let adaptee: Adaptee
+    
+    init(adaptee: Adaptee) {
+        self.adaptee = adaptee
+    }
+    
+    override func tellDate() {
+        adaptee.converDate()
+    }
+    
+}
+
+ var date = Date()
+date.tellDate()
+var dataAdapter = DateAdapter(adaptee: Adaptee())
+dataAdapter.tellDate()
 /*:
 ---
 #### Задание 6
 - Предположим, твой модуль представляет собой некий конвеер, который обрабатывает  различные предметы, которые на него попадают. На данный момент есть возможность переработать следующие типы предметов: пищевые отходы, электронику, бумагу и стекло. Для каждого типа предмета в системе должен быть предусмотрен свой обработчик, который принимает на вход предмет, сканирует его и определяет возможность переработки. Если этот предмет того типа, который он "умеет" обрабатывать, то он выполняет обработку, если нет, то передает следующему обработчику. Если же никто из обработчиков не смог переработать предмет, то предмет должен в конечном итоге попасть "в руки"  обьекту "Склад", который дальше уже не передает предмет, а ставит на нем специальный маркер.
  - Note: 👆 _Используй паттерн цепочка обязанностей_
 */
-
 // Добавь код сюда:
+
+protocol HandlerProtocol: class {
+    
+    var nextHandler: HandlerProtocol? { get set }
+    func setNext(handler: HandlerProtocol) -> HandlerProtocol
+    func handle(request: String) -> String?
+}
+
+extension HandlerProtocol {
+    
+    func setNext(handler: HandlerProtocol) -> HandlerProtocol {
+        nextHandler = handler
+        return handler
+    }
+}
+class FoodHandler: HandlerProtocol {
+    var nextHandler: HandlerProtocol?
+    
+
+    
+    func handle(request: String) -> String? {
+        if request == "food waste" {
+            
+            return "Food handler handeled \(request)"
+        } else {
+            
+            return nextHandler?.handle(request: request)
+        }
+    }
+}
+
+class PaperHandler: HandlerProtocol {
+    var nextHandler: HandlerProtocol?
+    
+    func handle(request: String) -> String? {
+        if request == "paper" {
+            
+            return "Paper handler handeled \(request)"
+        } else {
+            return nextHandler?.handle(request: request)
+        }
+    }
+}
+
+class GlassHandler: HandlerProtocol {
+    var nextHandler: HandlerProtocol?
+    
+    func handle(request: String) -> String? {
+        if request == "glass" {
+            
+            return "Glass handler handeled \(request)"
+        } else {
+            return nextHandler?.handle(request: request)
+        }
+    }
+}
+
+class ElectricHandler: HandlerProtocol {
+    var nextHandler: HandlerProtocol?
+    
+    func handle(request: String) -> String? {
+        if request == "electric" {
+            
+            return "Electric handler handeled \(request)"
+        } else {
+            return nextHandler?.handle(request: request)
+        }
+    }
+}
+var wareHouse = [String]()
+
+class Recycle {
+    
+    static func handle(with handler: HandlerProtocol) {
+        
+        let request = ["paper", "glass"]
+        
+        request.forEach {
+            
+            guard let result = handler.handle(request: $0) else {
+                wareHouse.append($0)
+                return
+            }
+            
+            print(result)
+        }
+    }
+}
+
+let foodHandler = FoodHandler()
+let glassHandler = GlassHandler()
+let paperHandler = PaperHandler()
+let electricHandler = ElectricHandler()
+
+foodHandler.setNext(handler: glassHandler).setNext(handler: paperHandler).setNext(handler: electricHandler)
+
+Recycle.handle(with: foodHandler)
 
 
 /*:
@@ -92,6 +452,7 @@ import Foundation
 */
 
 // Добавь код сюда:
+    
 
 //: [Назад:  Универсальные шаблоны](@previous)  |  Страница 14] 
 
